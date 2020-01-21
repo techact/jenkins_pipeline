@@ -3,6 +3,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'echo "${name}"'
+                sh 'echo "${A}"'
                 sh 'echo "Hello World"'
                 sh '''
                     echo "Multiline shell steps works too"
