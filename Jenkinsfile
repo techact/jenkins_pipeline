@@ -49,6 +49,14 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
+                retry(3) {
+                    sh 'echo hello'
+                }
+                timeout(time: 3, unit: 'SECONDS') {
+                    sh 'sleep 5'
+                }
+              }
+
             }
         }
     }
