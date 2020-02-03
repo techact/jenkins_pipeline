@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'echo ${MY_GLOBAL_VAR}
+                sh 'echo ${MY_GLOBAL_VAR}'
                 sh 'echo $secret'
                 sh 'echo "${A}"'
                 sh 'echo "${B}"'
@@ -42,10 +42,20 @@ pipeline {
         }
     }
     post {
-    failure {
-        mail to: 'suresh@ventunotech.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
-    }
+        always {
+            echo 'I will always get executed :D'
+        }
+        success {
+            echo 'I will only get executed if this success'
+        }
+        failure {
+            echo 'I will only get executed if this fails'
+            mail to: 'suresh@ventunotech.com',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
+        }
+        unstable {
+            echo 'I will only get executed if this is unstable'
+        }
 }
 }
