@@ -1,8 +1,14 @@
 pipeline {
     agent any
+    
+    environment {
+        secret = credentials('SECRET_TEXT')
+    }
+    
     stages {
         stage('Build') {
             steps {
+                sh 'echo $secret'
                 sh 'echo "${A}"'
                 sh 'echo "${B}"'
                 sh 'echo "${C}"'
