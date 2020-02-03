@@ -41,6 +41,7 @@ pipeline {
                     sh 'I am not going to work :c'
                 }
             }
+        }
         stage('Deploy') {
             steps {
                 sh 'echo "Hello World"'
