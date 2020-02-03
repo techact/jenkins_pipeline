@@ -3,6 +3,8 @@ pipeline {
     
     environment {
         secret = credentials('SECRET_TEXT')
+        AWS_ACCESS_KEY = 
+        AWS_SECRET_KEY =
     }
     
     stages {
@@ -29,7 +31,14 @@ pipeline {
                     echo "Multiline shell steps works too"
                     date
                 '''
-            }
+            	}
+            	retry(3) {
+                    sh './flakey-deploy.sh'
+                }
+
+                timeout(time: 3, unit: 'MINUTES') {
+                    sh './health-check.sh'
+                }
         }
         stage('Deploy') {
             steps {
@@ -38,6 +47,10 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
+                timeout(time: 3, unit: 'MINUTES') {
+                    retry(5) {
+                        sh './flakey-deploy.sh'
+                    }
             }
         }
     }
@@ -56,6 +69,10 @@ pipeline {
         }
         unstable {
             echo 'I will only get executed if this is unstable'
+        }
+        changed {
+            echo 'This will run only if the state of the Pipeline has changed'
+            echo 'For example, if the Pipeline was previously failing but is now successful'
         }
 }
 }
