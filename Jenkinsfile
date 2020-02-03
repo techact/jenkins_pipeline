@@ -11,6 +11,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo ${MY_GLOBAL_VAR}'
+                sh 'echo ${AWS_ACCESS_KEY}'
+                sh 'echo ${AWS_SECRET_KEY}'
                 sh 'echo $secret'
                 sh 'echo "${A}"'
                 sh 'echo "${B}"'
@@ -31,14 +33,7 @@ pipeline {
                     echo "Multiline shell steps works too"
                     date
                 '''
-            	}
-            	retry(3) {
-                    sh './flakey-deploy.sh'
-                }
-
-                timeout(time: 3, unit: 'MINUTES') {
-                    sh './health-check.sh'
-                }
+            }
         }
         stage('Deploy') {
             steps {
@@ -47,11 +42,6 @@ pipeline {
                     echo "Multiline shell steps works too"
                     ls -lah
                 '''
-                timeout(time: 3, unit: 'MINUTES') {
-                    retry(5) {
-                        sh './flakey-deploy.sh'
-                    }
-                 }
             }
         }
     }
