@@ -55,8 +55,6 @@ pipeline {
                 timeout(time: 3, unit: 'SECONDS') {
                     sh 'sleep 5'
                 }
-              }
-
             }
         }
     }
