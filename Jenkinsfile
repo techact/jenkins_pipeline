@@ -35,6 +35,12 @@ pipeline {
                 '''
             }
         }
+        stage('Timeout') {
+            steps {
+                retry(3) {
+                    sh 'I am not going to work :c'
+                }
+            }
         stage('Deploy') {
             steps {
                 sh 'echo "Hello World"'
