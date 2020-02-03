@@ -8,6 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'echo ${MY_GLOBAL_VAR}
                 sh 'echo $secret'
                 sh 'echo "${A}"'
                 sh 'echo "${B}"'
