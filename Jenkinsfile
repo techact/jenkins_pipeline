@@ -3,8 +3,8 @@ pipeline {
     
     environment {
         secret = credentials('SECRET_TEXT')
-        AWS_ACCESS_KEY = 
-        AWS_SECRET_KEY =
+        AWS_ACCESS_KEY = "AXXXXXXX"
+        AWS_SECRET_KEY = "SXXXXXXX"
     }
     
     stages {
@@ -51,6 +51,7 @@ pipeline {
                     retry(5) {
                         sh './flakey-deploy.sh'
                     }
+                 }
             }
         }
     }
