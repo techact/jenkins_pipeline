@@ -53,7 +53,7 @@ pipeline {
                     sh 'echo hello'
                 }
                 timeout(time: 3, unit: 'SECONDS') {
-                    sh 'sleep 5'
+                    sh 'sleep 2'
                 }
             }
         }
