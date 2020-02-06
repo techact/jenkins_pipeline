@@ -67,7 +67,7 @@ pipeline {
         }
         failure {
             echo 'I will only get executed if this fails'
-            mail to: 'suresh@ventunotech.com',
+            mail to: 'mailid@domain.com',
                  subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
                  body: "Something is wrong with ${env.BUILD_URL}"
         }
